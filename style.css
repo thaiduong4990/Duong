@@ -1,37 +1,15 @@
-body {
-  background-color: #000;
-  color: #0f0;
-  font-family: 'Courier New', monospace;
-  text-align: center;
-  padding: 20px;
+.loading {
+  display: none; /* Ẩn ban đầu */
+  width: 50px;
+  height: 50px;
+  border: 5px solid #0f0;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
 }
-h1 {
-  font-size: 36px;
-  text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
-  animation: flicker 1.5s infinite;
-}
-p {
-  font-size: 18px;
-}
-button {
-  background: none;
-  border: 2px solid #0f0;
-  color: #0f0;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-family: 'Courier New', monospace;
-}
-button:hover {
-  background: #0f0;
-  color: #000;
-}
-#food-result {
-  margin-top: 20px;
-  font-size: 20px;
-  color: #ff0;
-}
-@keyframes flicker {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
