@@ -34,7 +34,7 @@ function hackProfile() {
   }, 500);
 
   // Thêm âm thanh
-  const audio = new Audio("hack-sound.mp3"); // Thay bằng tên file âm thanh của cậu
+  const audio = new Audio("duong.wva"); // Thay bằng tên file âm thanh của cậu
   audio.play(); // Phát âm thanh khi bấm nút
 
   loading.style.display = "block";
