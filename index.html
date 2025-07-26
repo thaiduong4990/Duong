@@ -7,15 +7,72 @@
 <body>
   <h1>Chào mừng đến Đế chế Sống ảo của Dương!</h1>
   <p>Nhập tên để xâm nhập hệ thống... 😎</p>
-  <input type="text" id="userName" placeholder="Nhập tên (VD: Trịnh Đình Dương)">
+  <input type="text" id="userName" placeholder="Nhập tên (VD: trinhdinhduong)">
   <button onclick="hackProfile()">Xâm nhập và sống ảo!</button>
   <div id="loading" class="loading">
     <div class="spinner"></div>
     <div class="spinner"></div>
     <div class="spinner"></div>
   </div>
-  <div id="password-display" class="password-display"></div> <!-- Thêm dòng này -->
+  <div id="password-display" class="password-display"></div>
   <div id="result"></div>
   <script src="script.js"></script>
 </body>
 </html>
+<div id="passwordContainer" style="position: fixed; top: 70%; left: 50%; transform: translate(-50%, -50%); height: 200px; width: 300px; overflow: hidden; text-align: center;"></div>
+
+<script>
+    function generateRandomPassword(length) {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return password;
+    }
+
+    function animatePasswords() {
+        const container = document.getElementById("passwordContainer");
+        let top = 0;
+        let animationActive = true;
+
+        function movePassword() {
+            if (!animationActive) return; // Dừng nếu animation không còn active
+            const password = generateRandomPassword(10);
+            const div = document.createElement("div");
+            div.style.position = "absolute";
+            div.style.top = top + "px";
+            div.style.left = "0";
+            div.style.color = "green";
+            div.style.whiteSpace = "nowrap";
+            div.textContent = password;
+            container.appendChild(div);
+
+            top += 15;
+            if (top > container.offsetHeight) {
+                top = -15;
+                container.innerHTML = "";
+            }
+
+            setTimeout(movePassword, 400); // Tốc độ chậm
+        }
+
+        movePassword();
+        return () => { animationActive = false; }; // Hàm để dừng animation
+    }
+
+    // Chạy animation và dừng ở "12345678" sau 60000ms
+    const stopAnimation = animatePasswords();
+    setTimeout(() => {
+        stopAnimation(); // Dừng animation
+        const container = document.getElementById("passwordContainer");
+        container.innerHTML = ""; // Xóa tất cả
+        const finalDiv = document.createElement("div");
+        finalDiv.style.position = "absolute";
+        finalDiv.style.top = "0";
+        finalDiv.style.left = "0";
+        finalDiv.style.color = "green";
+        finalDiv.textContent = "Password_12345678";
+        container.appendChild(finalDiv);
+    }, 60000);
+</script>
