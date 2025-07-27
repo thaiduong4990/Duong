@@ -1,78 +1,136 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <title>Dương The Shadow - Sống ảo Hacker</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Dương</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #0f0;
+            margin-bottom: 20px;
+        }
+        .login, .hacking, .result {
+            display: none;
+        }
+        .login.active, .hacking.active, .result.active {
+            display: block;
+        }
+        input {
+            background: #111;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 10px;
+            margin: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+        }
+        button {
+            background: #0f0;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #0a0;
+            box-shadow: 0 0 10px #0f0;
+        }
+        .loading {
+            font-size: 1.5em;
+            animation: blink 1s infinite;
+        }
+        .password-stream {
+            height: 100px;
+            overflow: hidden;
+            margin: 30px 0;
+            font-size: 1.5em;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .result-text {
+            font-size: 2em;
+            color: #ff0;
+            text-shadow: 0 0 10px #ff0;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
 <body>
-  <h1>Chào mừng đến Đế chế Sống ảo của Dương!</h1>
-  <p>Nhập tên để xâm nhập hệ thống... 😎</p>
-  <input type="text" id="userName" placeholder="Nhập tên (VD: trinhdinhduong)">
-  <button onclick="hackProfile()">Xâm nhập và sống ảo!</button>
-  <div id="loading" class="loading">
-    <div class="spinner"></div>
-    <div class="spinner"></div>
-    <div class="spinner"></div>
-  </div>
-  <div id="password-display" class="password-display"></div>
-  <div id="result"></div>
-  <script src="script.js"></script>
+    <div class="container">
+        <h1>CHÀO MỪNG BẠN ĐẾN VỚI HACKER DƯƠNG</h1>
+        <div class="login active">
+            <input type="text" id="username" placeholder="ID">
+            <input type="password" id="password" placeholder="Mật khẩu">
+            <button onclick="login()">Đăng nhập</button>
+        </div>
+        <div class="hacking">
+            <button onclick="startHack()">Hack mật khẩu</button>
+            <div class="password-stream" id="passwordStream"></div>
+            <div class="loading" id="loading">Đang hack...</div>
+        </div>
+        <div class="result">
+            <p class="result-text">Mật khẩu: 12345678</p>
+            <p class="result-text">Đã hoàn tất!</p>
+        </div>
+    </div>
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (username === 'Duong' && password === '0978554115') {
+                document.querySelector('.login').classList.remove('active');
+                document.querySelector('.hacking').classList.add('active');
+            } else {
+                alert('ID hoặc mật khẩu sai!');
+            }
+        }
+
+        function generateRandomPassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < 8; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        function startHack() {
+            document.querySelector('.hacking button').style.display = 'none';
+            const passwordStream = document.getElementById('passwordStream');
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+
+            let streamInterval = setInterval(() => {
+                passwordStream.textContent = generateRandomPassword();
+            }, 100);
+
+            setTimeout(() => {
+                clearInterval(streamInterval);
+                document.querySelector('.hacking').classList.remove('active');
+                document.querySelector('.result').classList.add('active');
+            }, 120000); // 2 phút
+        }
+    </script>
 </body>
 </html>
-<div id="passwordContainer" style="position: fixed; top: 70%; left: 50%; transform: translate(-50%, -50%); height: 200px; width: 300px; overflow: hidden; text-align: center;"></div>
-
-<script>
-    function generateRandomPassword(length) {
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
-        let password = "";
-        for (let i = 0; i < length; i++) {
-            password += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return password;
-    }
-
-    function animatePasswords() {
-        const container = document.getElementById("passwordContainer");
-        let top = 0;
-        let animationActive = true;
-
-        function movePassword() {
-            if (!animationActive) return; // Dừng nếu animation không còn active
-            const password = generateRandomPassword(10);
-            const div = document.createElement("div");
-            div.style.position = "absolute";
-            div.style.top = top + "px";
-            div.style.left = "0";
-            div.style.color = "green";
-            div.style.whiteSpace = "nowrap";
-            div.textContent = password;
-            container.appendChild(div);
-
-            top += 15;
-            if (top > container.offsetHeight) {
-                top = -15;
-                container.innerHTML = "";
-            }
-
-            setTimeout(movePassword, 400); // Tốc độ chậm
-        }
-
-        movePassword();
-        return () => { animationActive = false; }; // Hàm để dừng animation
-    }
-
-    // Chạy animation và dừng ở "12345678" sau 60000ms
-    const stopAnimation = animatePasswords();
-    setTimeout(() => {
-        stopAnimation(); // Dừng animation
-        const container = document.getElementById("passwordContainer");
-        container.innerHTML = ""; // Xóa tất cả
-        const finalDiv = document.createElement("div");
-        finalDiv.style.position = "absolute";
-        finalDiv.style.top = "0";
-        finalDiv.style.left = "0";
-        finalDiv.style.color = "green";
-        finalDiv.textContent = "Password_12345678";
-        container.appendChild(finalDiv);
-    }, 60000);
-</script>
