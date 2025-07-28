@@ -6,13 +6,13 @@
   <style>
     body {
       background-color: black;
-      color: #00ff00;
+      color: #ff006a;
       font-family: 'Courier New', monospace;
       text-align: center;
       padding-top: 50px;
     }
     h1 {
-      font-size: 40px;
+      font-size: 60px;
       margin-bottom: 40px;
     }
     input, button {
@@ -37,7 +37,7 @@
       right: 0;
       height: 100px;
       overflow: hidden;
-      color: #00ff00;
+      color: #f10a0a;
       font-family: monospace;
       white-space: pre;
     }
@@ -51,13 +51,13 @@
 
   <h1>Chào mừng bạn đến với hacker Dương</h1>
 
-  <input type="text" id="username" placeholder="ID">
-  <input type="password" id="password" placeholder="Mật khẩu">
+  <input type="text" id="username" placeholder="Nhập ID">
+  <input type="password" id="password" placeholder="Nhập Mật khẩu">
   <br>
-  <button onclick="login()">Đăng nhập</button>
+  <button onclick="login()">>>Đăng nhập<<</button>
   <br><br>
-  <button onclick="startHacking()" disabled id="hackBtn">Hack mật khẩu</button>
-  <button onclick="startHacking()" disabled id="findBtn">Tìm mật Khẩu</button>
+  <button onclick="startHacking()" disabled id="hackBtn"> >>>Hack mật khẩu<<< </button>
+  <button onclick="startHacking()" disabled id="findBtn"> >>>Tìm mật Khẩu<<< </button>
 
   <div id="output"></div>
   <div class="loading" id="loading"></div>
@@ -75,7 +75,7 @@
     function login() {
       const user = usernameInput.value;
       const pass = passwordInput.value;
-      if (user === "Duong" && pass === "0978554115") {
+      if (user === "duong" && pass === "0978554115") {
         output.innerText = "Đăng nhập thành công!";
         hackBtn.disabled = false;
         findBtn.disabled = false;
@@ -86,7 +86,7 @@
 
     function startHacking() {
       output.innerText = "";
-      loading.innerText = "Đang tìm mật khẩu ảo...";
+      loading.innerText = "Đang tìm mật khẩu ...";
       const startTime = Date.now();
       const fakePasswords = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
       let interval = setInterval(() => {
@@ -116,10 +116,11 @@
       const matrix = document.getElementById("matrix");
       const line = generateMatrixLine();
       matrix.textContent = line + '\n' + matrix.textContent;
-      const lines = matrix.textContent.split('\n').slice(0, 4);
+      const lines = matrix.textContent.split('\n').slice(0, 9);
       matrix.textContent = lines.join('\n');
     }, 150);
   </script>
+  
 
 </body>
 </html>
