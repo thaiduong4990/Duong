@@ -1,136 +1,125 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hacker Dương</title>
-    <style>
-        body {
-            background: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .container {
-            text-align: center;
-            width: 100%;
-            max-width: 600px;
-        }
-        h1 {
-            font-size: 3em;
-            text-shadow: 0 0 10px #0f0;
-            margin-bottom: 20px;
-        }
-        .login, .hacking, .result {
-            display: none;
-        }
-        .login.active, .hacking.active, .result.active {
-            display: block;
-        }
-        input {
-            background: #111;
-            border: 2px solid #0f0;
-            color: #0f0;
-            padding: 10px;
-            margin: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.2em;
-        }
-        button {
-            background: #0f0;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background: #0a0;
-            box-shadow: 0 0 10px #0f0;
-        }
-        .loading {
-            font-size: 1.5em;
-            animation: blink 1s infinite;
-        }
-        .password-stream {
-            height: 100px;
-            overflow: hidden;
-            margin: 30px 0;
-            font-size: 1.5em;
-            color: #0f0;
-            text-shadow: 0 0 5px #0f0;
-        }
-        .result-text {
-            font-size: 2em;
-            color: #ff0;
-            text-shadow: 0 0 10px #ff0;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Hacker Dương</title>
+  <style>
+    body {
+      background-color: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 40px;
+      margin-bottom: 40px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 18px;
+      background: black;
+      border: 1px solid #00ff00;
+      color: #00ff00;
+    }
+    #output {
+      margin-top: 30px;
+      font-size: 20px;
+      white-space: pre-line;
+    }
+    .matrix {
+      font-size: 14px;
+      line-height: 1.4;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      overflow: hidden;
+      color: #00ff00;
+      font-family: monospace;
+      white-space: pre;
+    }
+    .loading {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>CHÀO MỪNG BẠN ĐẾN VỚI HACKER DƯƠNG</h1>
-        <div class="login active">
-            <input type="text" id="username" placeholder="ID">
-            <input type="password" id="password" placeholder="Mật khẩu">
-            <button onclick="login()">Đăng nhập</button>
-        </div>
-        <div class="hacking">
-            <button onclick="startHack()">Hack mật khẩu</button>
-            <div class="password-stream" id="passwordStream"></div>
-            <div class="loading" id="loading">Đang hack...</div>
-        </div>
-        <div class="result">
-            <p class="result-text">Mật khẩu: 12345678</p>
-            <p class="result-text">Đã hoàn tất!</p>
-        </div>
-    </div>
-    <script>
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            if (username === 'Duong' && password === '0978554115') {
-                document.querySelector('.login').classList.remove('active');
-                document.querySelector('.hacking').classList.add('active');
-            } else {
-                alert('ID hoặc mật khẩu sai!');
-            }
+
+  <h1>Chào mừng bạn đến với hacker Dương</h1>
+
+  <input type="text" id="username" placeholder="ID">
+  <input type="password" id="password" placeholder="Mật khẩu">
+  <br>
+  <button onclick="login()">Đăng nhập</button>
+  <br><br>
+  <button onclick="startHacking()" disabled id="hackBtn">Hack mật khẩu</button>
+  <button onclick="startHacking()" disabled id="findBtn">Tìm mật Khẩu</button>
+
+  <div id="output"></div>
+  <div class="loading" id="loading"></div>
+
+  <div class="matrix" id="matrix"></div>
+
+  <script>
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const hackBtn = document.getElementById("hackBtn");
+    const findBtn = document.getElementById("findBtn");
+    const output = document.getElementById("output");
+    const loading = document.getElementById("loading");
+
+    function login() {
+      const user = usernameInput.value;
+      const pass = passwordInput.value;
+      if (user === "Duong" && pass === "0978554115") {
+        output.innerText = "Đăng nhập thành công!";
+        hackBtn.disabled = false;
+        findBtn.disabled = false;
+      } else {
+        output.innerText = "Sai ID hoặc Mật khẩu!";
+      }
+    }
+
+    function startHacking() {
+      output.innerText = "";
+      loading.innerText = "Đang tìm mật khẩu ảo...";
+      const startTime = Date.now();
+      const fakePasswords = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let interval = setInterval(() => {
+        let pass = "";
+        for (let i = 0; i < 8; i++) {
+          pass += fakePasswords.charAt(Math.floor(Math.random() * fakePasswords.length));
         }
-
-        function generateRandomPassword() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let password = '';
-            for (let i = 0; i < 8; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return password;
+        output.innerText = "Đang kiểm tra: " + pass;
+        if (Date.now() - startTime > 2 * 60 * 1000) {
+          clearInterval(interval);
+          output.innerText = "Mật khẩu tìm thấy:\n\n- 12345678\n- 112233\n- 123123123\n\nĐã hoàn tất ✅";
+          loading.innerText = "";
         }
+      }, 100);
+    }
 
-        function startHack() {
-            document.querySelector('.hacking button').style.display = 'none';
-            const passwordStream = document.getElementById('passwordStream');
-            const loading = document.getElementById('loading');
-            loading.style.display = 'block';
+    // Tạo hiệu ứng số chạy phía dưới
+    function generateMatrixLine() {
+      let line = '';
+      for (let i = 0; i < 80; i++) {
+        line += Math.floor(Math.random() * 10);
+      }
+      return line;
+    }
 
-            let streamInterval = setInterval(() => {
-                passwordStream.textContent = generateRandomPassword();
-            }, 100);
+    setInterval(() => {
+      const matrix = document.getElementById("matrix");
+      const line = generateMatrixLine();
+      matrix.textContent = line + '\n' + matrix.textContent;
+      const lines = matrix.textContent.split('\n').slice(0, 4);
+      matrix.textContent = lines.join('\n');
+    }, 150);
+  </script>
 
-            setTimeout(() => {
-                clearInterval(streamInterval);
-                document.querySelector('.hacking').classList.remove('active');
-                document.querySelector('.result').classList.add('active');
-            }, 120000); // 2 phút
-        }
-    </script>
 </body>
 </html>
